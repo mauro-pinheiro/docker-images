@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+    ubuntu:
+        build:
+            context: ./ubuntu
+            args:
+                - USER=$USER
+                - USER_ID=1000
+                - GROUP_ID=1000
+        image: mauro/ubuntu
+
+    laravel:
+        build:
+            context: ./laravel
+            args:
+                - USER=$USER
+                - USER_ID=1000
+                - GROUP_ID=1000
+        image: mauro/laravel
+    
+    node:
+        build:
+            context: ./node
+            args:
+                - USER=$USER
+        image: mauro/node
+        depends_on: 
+            - ubuntu
+    
+    deno:
+        build:
+            context: ./deno
+            args:
+                - USER=$USER
+        image: mauro/deno
+        depends_on: 
+            - ubuntu
+    
+    conda:
+        build:
+            context: ./python/conda
+            args:
+                - USER=$USER
+        image: mauro/conda
+        depends_on: 
+            - ubuntu
+
+    jupyter:
+        build:
+            context: ./python/jupyter
+            args:
+                - USER=$USER
+        image: mauro/jupyter
+        depends_on: 
+            - ubuntu
