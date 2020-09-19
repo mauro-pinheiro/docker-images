@@ -46,9 +46,9 @@ services:
         depends_on: 
             - ubuntu
 
-    jupyter:
+    pydata:
         build:
-            context: ./python/jupyter
+            context: ./python/pydata
             args:
                 - USER=$USER
         image: mauro/jupyter
