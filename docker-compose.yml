@@ -51,6 +51,6 @@ services:
             context: ./python/pydata
             args:
                 - USER=$USER
-        image: mauro/jupyter
+        image: mauro/pydata
         depends_on: 
             - ubuntu
