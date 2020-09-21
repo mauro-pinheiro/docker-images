@@ -8,6 +8,9 @@ services:
                 - USER=$USER
                 - USER_ID=1000
                 - GROUP_ID=1000
+                - SSHPRI=$SSHPRI
+                - SSHPUB=$SSHPUB
+                - GITGLO=$GITGLO
         image: mauro/ubuntu
 
     laravel:
@@ -17,6 +20,9 @@ services:
                 - USER=$USER
                 - USER_ID=1000
                 - GROUP_ID=1000
+                - SSHPRI=$SSHPRI
+                - SSHPUB=$SSHPUB
+                - GITGLO=$GITGLO
         image: mauro/laravel
     
     node:

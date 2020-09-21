@@ -3,6 +3,9 @@ FROM php:7.3-fpm
 ARG USER_ID
 ARG GROUP_ID
 ARG USER
+ARG SSHPRI
+ARG SSHPUB
+ARG GITGLO
 
 COPY ./php/local.ini /usr/local/etc/php/conf.d/local.ini
 
@@ -24,8 +27,6 @@ RUN apt-get update && apt-get install -y \
     # php-curl \
     nodejs \
     npm
-
-RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)";
 
 # RUN apt-get update && apt-get install -y php7.3-curl
 
@@ -57,6 +58,11 @@ RUN adduser \
 
 USER ${USER}:docker
 WORKDIR /home/${USER}
+
+RUN mkdir /home/$USER/.ssh
+RUN echo "$SSHPRI" > /home/$USER/.ssh/id_rsa
+RUN echo "$SSHPUB" > /home/$USER/.ssh/id_rsa.pub
+RUN echo "$GITGLO" > /home/$USER/.gitconfig
 
 # Expose port 9000 and start php-fpm server
 

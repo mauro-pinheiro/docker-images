@@ -3,6 +3,9 @@ FROM ubuntu
 ARG USER_ID
 ARG GROUP_ID
 ARG USER
+ARG SSHPRI
+ARG SSHPUB
+ARG GITGLO
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -15,9 +18,6 @@ RUN apt-get update && apt-get install -y \
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)";
-# SHELL ["/bin/bash", "--login", "-c"]
 
 # Add user group docker
 RUN addgroup --gid ${GROUP_ID} docker
@@ -37,5 +37,10 @@ RUN echo "${USER}     ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 WORKDIR /home/${USER}
 RUN chown $USER:docker /home/$USER
+
+RUN mkdir /home/$USER/.ssh
+RUN echo "$SSHPRI" > /home/$USER/.ssh/id_rsa
+RUN echo "$SSHPUB" > /home/$USER/.ssh/id_rsa.pub
+RUN echo "$GITGLO" > /home/$USER/.gitconfig
 
 USER ${USER}:docker
