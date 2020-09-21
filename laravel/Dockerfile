@@ -63,6 +63,7 @@ RUN mkdir /home/$USER/.ssh
 RUN echo "$SSHPRI" > /home/$USER/.ssh/id_rsa
 RUN echo "$SSHPUB" > /home/$USER/.ssh/id_rsa.pub
 RUN echo "$GITGLO" > /home/$USER/.gitconfig
+RUN echo “StrictHostKeyChecking no “ > /home/$USER/.ssh/config
 
 # Expose port 9000 and start php-fpm server
 
