@@ -56,6 +56,11 @@ RUN adduser \
     $USER
 
 USER ${USER}:docker
+
+# Install laravel installer
+RUN composer global require laravel/installer
+ENV PATH=/home/mauro/.composer/vendor/bin:$PATH
+
 WORKDIR /home/${USER}
 
 RUN mkdir /home/$USER/.ssh
