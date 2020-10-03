@@ -67,5 +67,8 @@ RUN echo “StrictHostKeyChecking no “ > /home/$USER/.ssh/config
 # Expose port 9000 and start php-fpm server
 
 
+#Install oh-my-bash
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+
 EXPOSE 9000
 CMD ["php-fpm"]
