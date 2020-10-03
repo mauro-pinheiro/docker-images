@@ -23,7 +23,7 @@ services:
                 - SSHPRI=$SSHPRI
                 - SSHPUB=$SSHPUB
                 - GITGLO=$GITGLO
-        image: mauro/laravel
+        image: mauro/laravel:php74
     
     node:
         build:
