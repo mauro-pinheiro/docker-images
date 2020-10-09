@@ -44,7 +44,7 @@ RUN echo "$SSHPUB" > /home/$USER/.ssh/id_rsa.pub
 RUN echo "$GITGLO" > /home/$USER/.gitconfig
 RUN echo “StrictHostKeyChecking no “ > /home/$USER/.ssh/config
 
+USER ${USER}:docker
+
 #Install oh-my-bash
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
-
-USER ${USER}:docker
