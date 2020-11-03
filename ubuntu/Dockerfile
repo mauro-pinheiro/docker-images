@@ -38,13 +38,12 @@ RUN echo "${USER}     ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 WORKDIR /home/${USER}
 RUN chown $USER:docker /home/$USER
 
-RUN mkdir /home/$USER/.ssh
-RUN echo "$SSHPRI" > /home/$USER/.ssh/id_rsa
-RUN echo "$SSHPUB" > /home/$USER/.ssh/id_rsa.pub
-RUN echo "$GITGLO" > /home/$USER/.gitconfig
-RUN echo “StrictHostKeyChecking no “ > /home/$USER/.ssh/config
-
 USER ${USER}:docker
 
 #Install oh-my-bash
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+
+RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0 \
+    sudo apt-add-repository https://cli.github.com/packages \
+    sudo apt update \
+    sudo apt install gh

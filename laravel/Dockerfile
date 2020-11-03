@@ -7,8 +7,6 @@ ARG SSHPRI
 ARG SSHPUB
 ARG GITGLO
 
-COPY ./php/local.ini /usr/local/etc/php/conf.d/local.ini
-
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -57,16 +55,22 @@ RUN adduser \
     $USER
 
 USER ${USER}:docker
+
+#Install oh-my-bash
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+
 WORKDIR /home/${USER}
 
 RUN mkdir /home/$USER/.ssh
 RUN echo "$SSHPRI" > /home/$USER/.ssh/id_rsa
 RUN echo "$SSHPUB" > /home/$USER/.ssh/id_rsa.pub
 RUN echo "$GITGLO" > /home/$USER/.gitconfig
-RUN echo “StrictHostKeyChecking no “ > /home/$USER/.ssh/config
+RUN echo "StrictHostKeyChecking no"  > /home/$USER/.ssh/config
+
+COPY ./php/local.ini /usr/local/etc/php/conf.d/local.ini
+
 
 # Expose port 9000 and start php-fpm server
-
 
 EXPOSE 9000
 CMD ["php-fpm"]
