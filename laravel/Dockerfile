@@ -3,12 +3,14 @@ FROM php:7.3-fpm
 ARG USER_ID
 ARG GROUP_ID
 ARG USER
-ARG SSHPRI
-ARG SSHPUB
-ARG GITGLO
+ARG GIT_APP_KEY=C99B11DEB97541F0
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ="America/São Paulo"
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
+    software-properties-common \
     build-essential \
     libpng-dev \
     libssl-dev \
@@ -22,11 +24,17 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    # php-curl \
+    gnupg \
     nodejs \
     npm
 
 # RUN apt-get update && apt-get install -y php7.3-curl
+
+RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-key $GIT_APP_KEY && \
+    apt-add-repository https://cli.github.com/packages && \
+    apt update && \
+    apt install gh
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -61,14 +69,7 @@ RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/
 
 WORKDIR /home/${USER}
 
-RUN mkdir /home/$USER/.ssh
-RUN echo "$SSHPRI" > /home/$USER/.ssh/id_rsa
-RUN echo "$SSHPUB" > /home/$USER/.ssh/id_rsa.pub
-RUN echo "$GITGLO" > /home/$USER/.gitconfig
-RUN echo "StrictHostKeyChecking no"  > /home/$USER/.ssh/config
-
 COPY ./php/local.ini /usr/local/etc/php/conf.d/local.ini
-
 
 # Expose port 9000 and start php-fpm server
 
