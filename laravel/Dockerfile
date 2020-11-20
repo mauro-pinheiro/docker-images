@@ -51,7 +51,7 @@ RUN pecl install mongodb
 RUN pecl install xdebug
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --1
 
 RUN addgroup --gid ${GROUP_ID} docker
 RUN adduser \
