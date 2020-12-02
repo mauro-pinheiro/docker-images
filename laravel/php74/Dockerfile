@@ -44,7 +44,7 @@ RUN pecl install xdebug
 COPY ./local.ini /usr/local/etc/php/conf.d/local.ini
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --1
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN addgroup --gid ${GROUP_ID} docker
 RUN adduser \
