@@ -10,32 +10,41 @@ services:
                 - GROUP_ID=1000
         image: mauro/ubuntu
 
-    laravel72:
+    php72:
         build:
-            context: ./laravel/php72
+            context: ./php/php72
             args:
                 - USER=$USER
                 - USER_ID=1000
                 - GROUP_ID=1000
-        image: mauro/laravel:php72
+        image: mauro/php:php72
 
-    laravel73:
+    php73:
         build:
-            context: ./laravel/php73
+            context: ./php/php73
             args:
                 - USER=$USER
                 - USER_ID=1000
                 - GROUP_ID=1000
-        image: mauro/laravel:php73
+        image: mauro/php:php73
     
-    laravel74:
+    php74:
         build:
-            context: ./laravel/php74
+            context: ./php/php74
             args:
                 - USER=$USER
                 - USER_ID=1000
                 - GROUP_ID=1000
-        image: mauro/laravel:php74
+        image: mauro/php:php74
+    
+    php8:
+        build:
+            context: ./php/php8
+            args:
+                - USER=$USER
+                - USER_ID=1000
+                - GROUP_ID=1000
+        image: mauro/php:php8
     
     node:
         build:
@@ -70,11 +79,5 @@ services:
             args:
                 - USER=$USER
         image: mauro/pydata
-        depends_on: 
-            - ubuntu
-    pyds:
-        build:
-            context: ./pyds
-        image: mauro/pyds
         depends_on: 
             - ubuntu
