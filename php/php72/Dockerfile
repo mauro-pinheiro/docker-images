@@ -47,8 +47,7 @@ RUN docker-php-ext-install gd
 # RUN docker-php-ext-configure curl --with-curl=/usr/local/lib
 # RUN docker-php-ext-install curl
 
-RUN pecl install mongodb
-RUN pecl install xdebug
+# RUN pecl install xdebug
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -69,7 +68,7 @@ RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/
 
 WORKDIR /home/${USER}
 
-COPY ./local.ini /usr/local/etc/php/conf.d/local.ini
+# COPY ./local.ini /usr/local/etc/php/conf.d/local.ini
 
 # Expose port 9000 and start php-fpm server
 

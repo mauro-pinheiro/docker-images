@@ -39,8 +39,6 @@ RUN docker-php-ext-install gd
 # RUN docker-php-ext-configure curl --with-curl=/usr/local/lib
 # RUN docker-php-ext-install curl
 
-RUN pecl install mongodb
-RUN pecl install xdebug
 COPY ./local.ini /usr/local/etc/php/conf.d/local.ini
 
 # Install composer
