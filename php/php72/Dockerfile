@@ -66,9 +66,9 @@ RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 && \
 #Install oh-my-bash
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 
-# WORKDIR /home/${USER}
+WORKDIR /home/${USER}
 
-# COPY ./local.ini /usr/local/etc/php/conf.d/local.ini
+COPY ./local.ini /usr/local/etc/php/conf.d/local.ini
 
 # Expose port 9000 and start php-fpm server
 
