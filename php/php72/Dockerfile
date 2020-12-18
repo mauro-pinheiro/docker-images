@@ -3,7 +3,7 @@ FROM php:7.2-fpm
 ARG USER_ID
 ARG GROUP_ID
 ARG USER
-ARG GIT_APP_KEY=C99B11DEB97541F0
+# ARG GIT_APP_KEY=C99B11DEB97541F0
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ="America/São Paulo"
@@ -57,11 +57,11 @@ RUN adduser \
 
 USER ${USER}:docker
 
-RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-key $GIT_APP_KEY && \
-    apt-add-repository https://cli.github.com/packages && \
-    apt update && \
-    apt install gh
+# RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 && \
+#     apt-key adv --keyserver keyserver.ubuntu.com --recv-key $GIT_APP_KEY && \
+#     apt-add-repository https://cli.github.com/packages && \
+#     apt update && \
+#     apt install gh
 
 #Install oh-my-bash
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
