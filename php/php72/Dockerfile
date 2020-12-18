@@ -2,7 +2,7 @@ FROM php:7.2-fpm
 
 # ARG USER_ID
 # ARG GROUP_ID
-# ARG USER
+ARG USER
 ARG GIT_APP_KEY=C99B11DEB97541F0
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -52,16 +52,16 @@ RUN docker-php-ext-install gd
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# RUN addgroup --gid ${GROUP_ID} docker
-# RUN adduser \
-#     --disabled-password \
-#     --gecos '' \
-#     --uid $USER_ID \
-#     --gid $GROUP_ID \
-#     --home "/home/${USER}" \
-#     $USER
+RUN addgroup --gid ${GROUP_ID} docker
+RUN adduser \
+    --disabled-password \
+    --gecos '' \
+    --uid $USER_ID \
+    --gid $GROUP_ID \
+    --home "/home/${USER}" \
+    $USER
 
-# USER ${USER}:docker
+USER ${USER}:docker
 
 #Install oh-my-bash
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
