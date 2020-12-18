@@ -2,7 +2,7 @@ FROM ubuntu
 
 # ARG USER_ID
 # ARG GROUP_ID
-# ARG USER
+ARG USER="laravel"
 ARG GIT_APP_KEY=C99B11DEB97541F0
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -28,26 +28,26 @@ RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 && \
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Add user group docker
-# RUN addgroup --gid ${GROUP_ID} docker
+Add user group docker
+RUN addgroup --gid ${GROUP_ID} docker
 
-# # Add new user,
-# # no password, no iteractive, given user id, given group id,
-# # create home at given location, given username
-# RUN adduser \
-#     --disabled-password \
-#     --gecos '' \
-#     --uid $USER_ID \
-#     --gid $GROUP_ID \
-#     --home "/home/${USER}" \
-#     $USER
+# Add new user,
+# no password, no iteractive, given user id, given group id,
+# create home at given location, given username
+RUN adduser \
+    --disabled-password \
+    --gecos '' \
+    --uid $USER_ID \
+    --gid $GROUP_ID \
+    --home "/home/${USER}" \
+    $USER
 
-# RUN echo "${USER}     ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN echo "${USER}     ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# WORKDIR /home/${USER}
-# RUN chown $USER:docker /home/$USER
+WORKDIR /home/${USER}
+RUN chown $USER:docker /home/$USER
 
-# USER ${USER}:docker
+USER ${USER}:docker
 
 #Install oh-my-bash
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
