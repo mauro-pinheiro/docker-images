@@ -68,7 +68,7 @@ RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/
 
 WORKDIR /home/${USER}
 
-COPY ./local.ini /usr/local/etc/php/conf.d/local.ini
+# COPY ./local.ini /usr/local/etc/php/conf.d/local.ini
 
 # Expose port 9000 and start php-fpm server
 
