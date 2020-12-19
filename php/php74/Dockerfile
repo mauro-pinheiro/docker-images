@@ -3,9 +3,9 @@ FROM php:7.4-fpm
 ARG USER_ID
 ARG GROUP_ID
 ARG USER
-ARG SSHPRI
-ARG SSHPUB
-ARG GITGLO
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ="America/São Paulo"
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -61,14 +61,7 @@ ENV PATH=/home/mauro/.composer/vendor/bin:$PATH
 
 WORKDIR /home/${USER}
 
-RUN mkdir /home/$USER/.ssh
-RUN echo "$SSHPRI" > /home/$USER/.ssh/id_rsa
-RUN echo "$SSHPUB" > /home/$USER/.ssh/id_rsa.pub
-RUN echo "$GITGLO" > /home/$USER/.gitconfig
-RUN echo “StrictHostKeyChecking no “ > /home/$USER/.ssh/config
-
 # Expose port 9000 and start php-fpm server
-
 
 #Install oh-my-bash
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"

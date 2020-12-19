@@ -3,9 +3,9 @@ FROM php:8-fpm
 ARG USER_ID
 ARG GROUP_ID
 ARG USER
-ARG SSHPRI
-ARG SSHPUB
-ARG GITGLO
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ="America/São Paulo"
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -39,10 +39,6 @@ RUN docker-php-ext-install gd
 # RUN docker-php-ext-configure curl --with-curl=/usr/local/lib
 # RUN docker-php-ext-install curl
 
-RUN pecl install mongodb
-RUN pecl install xdebug
-COPY ./local.ini /usr/local/etc/php/conf.d/local.ini
-
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -63,17 +59,9 @@ ENV PATH=/home/mauro/.composer/vendor/bin:$PATH
 
 WORKDIR /home/${USER}
 
-RUN mkdir /home/$USER/.ssh
-RUN echo "$SSHPRI" > /home/$USER/.ssh/id_rsa
-RUN echo "$SSHPUB" > /home/$USER/.ssh/id_rsa.pub
-RUN echo "$GITGLO" > /home/$USER/.gitconfig
-RUN echo “StrictHostKeyChecking no “ > /home/$USER/.ssh/config
-
-# Expose port 9000 and start php-fpm server
-
-
 #Install oh-my-bash
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 
+# Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]

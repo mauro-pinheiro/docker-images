@@ -37,14 +37,14 @@ services:
                 - GROUP_ID=1000
         image: mauro/php:74
     
-    php8:
+    php80:
         build:
-            context: ./php/php8
+            context: ./php/php80
             args:
                 - USER=$USER
                 - USER_ID=1000
                 - GROUP_ID=1000
-        image: mauro/php:8
+        image: mauro/php:80
     
     node:
         build:

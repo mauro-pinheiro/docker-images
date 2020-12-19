@@ -3,7 +3,6 @@ FROM php:7.3-fpm
 ARG USER_ID
 ARG GROUP_ID
 ARG USER
-ARG GIT_APP_KEY=C99B11DEB97541F0
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ="America/São Paulo"
@@ -30,12 +29,6 @@ RUN apt-get update && apt-get install -y \
 
 # RUN apt-get update && apt-get install -y php7.3-curl
 
-RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-key $GIT_APP_KEY && \
-    apt-add-repository https://cli.github.com/packages && \
-    apt update && \
-    apt install gh
-
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -46,9 +39,6 @@ RUN docker-php-ext-install gd
 
 # RUN docker-php-ext-configure curl --with-curl=/usr/local/lib
 # RUN docker-php-ext-install curl
-
-RUN pecl install mongodb
-RUN pecl install xdebug
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --1
@@ -68,8 +58,6 @@ USER ${USER}:docker
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 
 WORKDIR /home/${USER}
-
-COPY ./local.ini /usr/local/etc/php/conf.d/local.ini
 
 # Expose port 9000 and start php-fpm server
 
