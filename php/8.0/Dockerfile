@@ -62,7 +62,7 @@ ENV PATH=/home/USER/.config/composer/vendor/bin
 WORKDIR /home/${USER}
 
 #Install oh-my-bash
-RUN curl -s https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh | bash
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
