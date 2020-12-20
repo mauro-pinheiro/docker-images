@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     libonig-dev
     
-RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
+RUN curl -s https://deb.nodesource.com/setup_15.x | bash
 RUN apt-get install -y nodejs
 
 # RUN apt-get update && apt-get install -y php7.3-curl
