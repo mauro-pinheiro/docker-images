@@ -55,11 +55,13 @@ RUN adduser \
 
 USER ${USER}:docker
 
+WORKDIR /home/${USER}
+
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+
 # Install laravel installer
 RUN composer global require laravel/installer
-ENV PATH=/home/USER/.config/composer/vendor/bin
-
-WORKDIR /home/${USER}
+ENV PATH=/home/$USER/.config/composer/vendor/bin:$PATH
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
