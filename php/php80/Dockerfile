@@ -8,6 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ="America/São Paulo"
 
 # Install dependencies
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
