@@ -8,7 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ="America/São Paulo"
 
 # Install dependencies
-RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
+
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
@@ -23,9 +23,10 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    libonig-dev \
-    nodejs \
-    npm
+    libonig-dev
+    
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
+RUN apt-get install -y nodejs
 
 # RUN apt-get update && apt-get install -y php7.3-curl
 
